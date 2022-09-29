@@ -19,6 +19,26 @@ module.exports.registerUser = async( req, res) => {
     })
 }
 
+
+module.exports.registersUsers = async( req, res) => {
+    await UserModel.create(req.body)
+    .then((user)=>{
+        user.sayHello()
+        res.status(201).json({
+            "success": true,
+            "message" : "Data Created",
+            user
+        })
+    })
+    .catch((e)=>{
+        res.status(501).json({
+            "success" : false,
+            "message" : `Data could not be created because ${e}`
+
+        })
+    })
+}
+
 module.exports.getAllUsers = async(req, res) => {
     try{
         const id = req.body.id
